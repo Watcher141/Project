@@ -1,0 +1,105 @@
+Assignment 4 – DBMS Lab (PC-CS692)
+Objective: Learning DML and Nested Query
+
+
+Q1. Create the “Customers” table and populate it with data
+Assuming the data from your PDF (please adjust values if different):
+
+sql>
+CREATE TABLE Customers (
+    CustomerID NUMBER PRIMARY KEY,
+    CustomerName VARCHAR2(50),
+    ContactName VARCHAR2(50),
+    Address VARCHAR2(100),
+    City VARCHAR2(50),
+    PostalCode VARCHAR2(15),
+    Country VARCHAR2(50)
+);
+
+-- Sample insert statements (replace with your actual data)
+INSERT INTO Customers VALUES (1, 'Alfreds Futterkiste', 'Maria Anders', 'Obere Str. 57', 'Berlin', '12209', 'Germany');
+INSERT INTO Customers VALUES (2, 'Ana Trujillo Emparedados y helados', 'Ana Trujillo', 'Avda. de la Constitución 2222', 'México D.F.', '05021', 'Mexico');
+INSERT INTO Customers VALUES (3, 'Antonio Moreno Taquería', 'Antonio Moreno', 'Mataderos 2312', 'México D.F.', '05023', 'Mexico');
+INSERT INTO Customers VALUES (4, 'Around the Horn', 'Thomas Hardy', '120 Hanover Sq.', 'London', 'WA1 1DP', 'UK');
+INSERT INTO Customers VALUES (5, 'Berglunds snabbköp', 'Christina Berglund', 'Berguvsvägen 8', 'Luleå', 'S-958 22', 'Sweden');
+-- Add all other rows similarly
+
+
+
+
+
+
+Q2. Write SQL Statements for the following cases:
+
+a) Add a new tuple in the Customers table
+sql
+INSERT INTO Customers VALUES (6, 'New Customer', 'John Doe', '123 New St', 'New City', '12345', 'NewCountry');
+
+
+b) Create a backup table named Cust_BackUp containing all records of Customers table
+sql
+CREATE TABLE Cust_BackUp AS SELECT * FROM Customers;
+
+
+c) Delete all records from Customers where City = 'Berlin' or Country = 'UK'
+sql
+DELETE FROM Customers WHERE City = 'Berlin' OR Country = 'UK';
+
+
+d) Show Customer names and Addresses for customers NOT in 'UK' or 'Mexico' from Cust_BackUp, sorted by City
+sql
+SELECT CustomerName, Address
+FROM Cust_BackUp
+WHERE Country NOT IN ('UK', 'Mexico')
+ORDER BY City ASC;
+
+
+e) Show count of distinct countries in Cust_BackUp
+sql
+SELECT COUNT(DISTINCT Country) AS DistinctCountryCount
+FROM Cust_BackUp;
+
+
+f) Show all customers from Cust_BackUp sorted by Country and then CustomerName
+sql
+SELECT * 
+FROM Cust_BackUp
+ORDER BY Country, CustomerName;
+
+
+g) Update City to 'Tijuana' for customers in Mexico but ContactName is NOT 'Antonio Moreno' in Cust_BackUp
+sql
+UPDATE Cust_BackUp
+SET City = 'Tijuana'
+WHERE Country = 'Mexico' AND ContactName <> 'Antonio Moreno';
+
+
+h) Show details of customers who live in the same country as customer with ContactName = 'Ana Trujillo' (use Cust_BackUp)
+sql
+SELECT *
+FROM Cust_BackUp
+WHERE Country = (
+    SELECT Country FROM Cust_BackUp WHERE ContactName = 'Ana Trujillo'
+);
+
+
+i) Find customers who do NOT belong to any of the listed countries (assuming listed countries are UK, Mexico, Germany, Sweden)
+sql
+SELECT *
+FROM Cust_BackUp
+WHERE Country NOT IN ('UK', 'Mexico', 'Germany', 'Sweden');
+
+
+j) Count customers in each country and display CountryName and CustomerCount
+sql
+SELECT Country, COUNT(*) AS CustomerCount
+FROM Cust_BackUp
+GROUP BY Country;
+
+
+k) Find number of customers in each city, sorted by count descending
+sql
+SELECT City, COUNT(*) AS CustomerCount
+FROM Cust_BackUp
+GROUP BY City
+ORDER BY CustomerCount DESC;

@@ -1,0 +1,798 @@
+I'll help you organize and provide the SQL code for all your DBMS assignments. Let's start by creating the necessary tables and then work through each assignment systematically.
+
+## Database Tables Creation
+
+Let's first create all the tables needed for your assignments:
+
+```sql
+-- Client_master table
+CREATE TABLE Client_master (
+    ClientNo VARCHAR2(6) PRIMARY KEY,
+    Name VARCHAR2(20),
+    Address1 VARCHAR2(30),
+    Address2 VARCHAR2(30),
+    City VARCHAR2(15),
+    State VARCHAR2(15),
+    Pincode VARCHAR2(6),
+    Bal_due NUMBER(10,2)
+);
+
+-- Product_master table
+CREATE TABLE Product_master (
+    Product_no VARCHAR2(10) PRIMARY KEY,
+    Description VARCHAR2(30),
+    Profit_percent NUMBER(5,2),
+    Unit_measure VARCHAR2(10),
+    Qty_on_hand NUMBER(6),
+    Reorder_lvl NUMBER(6),
+    Sell_price NUMBER(7,2),
+    Cost_price NUMBER(7,2)
+);
+
+-- Employee table
+CREATE TABLE EMPLOYEE (
+    E_no NUMBER(5), 
+    E_name CHAR(30), 
+    E_address CHAR(100), 
+    E_ph_no CHAR(15), 
+    Dept_no NUMBER(3), 
+    Dept_name CHAR(30), 
+    Job_id CHAR(10), 
+    Salary NUMBER(10, 2)
+);
+
+-- Customers table
+CREATE TABLE Customers (
+    CustomerID INT,
+    CustomerName VARCHAR2(255),
+    ContactName VARCHAR2(255),
+    Address VARCHAR2(255),
+    City VARCHAR2(100),
+    PostalCode VARCHAR2(50),
+    Country VARCHAR2(100)
+);
+```
+
+Now let's populate the tables with some initial data:
+
+```sql
+-- Populate Client_master table
+INSERT INTO Client_master VALUES ('0001', 'Ivan', 'Bombay', NULL, 'Bombay', 'Maharashtra', '400054', 15000);
+INSERT INTO Client_master VALUES ('0002', 'Vandana', 'Madras', NULL, 'Madras', 'Tamil Nadu', '780001', 0);
+INSERT INTO Client_master VALUES ('0003', 'Pramada', 'Bombay', NULL, 'Bombay', 'Maharashtra', '400057', 5000);
+INSERT INTO Client_master VALUES ('0004', 'Basu', 'Bombay', NULL, 'Bombay', 'Maharashtra', '400056', 0);
+INSERT INTO Client_master VALUES ('0005', 'Ravi', 'Delhi', NULL, 'Delhi', 'Maharashtra', '100001', 2000);
+INSERT INTO Client_master VALUES ('0006', 'Rukmini', 'Bombay', NULL, 'Bombay', 'Maharashtra', '400050', 0);
+
+-- Populate Product_master table
+INSERT INTO Product_master VALUES ('P00001', '1.44 Floppies', 5, 'Piece', 100, 20, 525, 500);
+INSERT INTO Product_master VALUES ('P03453', 'Monitors', 6, 'Piece', 10, 3, 12000, 11200);
+INSERT INTO Product_master VALUES ('P06734', 'Mouse', 5, 'Piece', 20, 5, 1050, 1000);
+INSERT INTO Product_master VALUES ('P07865', 'Keyboards', 2, 'Piece', 10, 3, 3150, 3050);
+INSERT INTO Product_master VALUES ('P07868', '1.22 Floppies', 5, 'Piece', 100, 20, 525, 500);
+INSERT INTO Product_master VALUES ('P07885', 'CD Drive', 2.5, 'Piece', 10, 3, 5250, 5100);
+INSERT INTO Product_master VALUES ('P07965', '540 HDD', 4, 'Piece', 10, 3, 8400, 8000);
+INSERT INTO Product_master VALUES ('P07975', '1.44 Drive', 5, 'Piece', 10, 3, 1050, 1000);
+INSERT INTO Product_master VALUES ('P08865', '1.22 Drive', 5, 'Piece', 2, 3, 1050, 1000);
+
+-- Populate Customers table
+INSERT INTO Customers (CustomerID, CustomerName, ContactName, Address, City, PostalCode, Country) 
+VALUES (1, 'Alfreds Futterkiste', 'Maria Anders', 'Obere Str. 57', 'Berlin', '12209', 'Germany');
+
+INSERT INTO Customers (CustomerID, CustomerName, ContactName, Address, City, PostalCode, Country) 
+VALUES (2, 'Ana Trujillo Emparedados y helados', 'Ana Trujillo', 'Avda. de la Constitución 2222', 'México D.F.', '05021', 'Mexico');
+
+INSERT INTO Customers (CustomerID, CustomerName, ContactName, Address, City, PostalCode, Country) 
+VALUES (3, 'Antonio Moreno Taquería', 'Antonio Moreno', 'Mataderos 2312', 'México D.F.', '05023', 'Mexico');
+
+INSERT INTO Customers (CustomerID, CustomerName, ContactName, Address, City, PostalCode, Country) 
+VALUES (4, 'Around the Horn', 'Thomas Hardy', '120 Hanover Sq.', 'London', 'WA1 1DP', 'UK');
+
+INSERT INTO Customers (CustomerID, CustomerName, ContactName, Address, City, PostalCode, Country) 
+VALUES (5, 'Berglunds snabbköp', 'Christina Berglund', 'Berguvsvägen 8', 'Luleå', 'S-958 22', 'Sweden');
+```
+
+## Assignment 2
+-------------------------------------------
+//////////////////////////////////////////////
+-------------------------------------------
+=============================================
+### Question 1: Create a table EMPLOYEE with the given schema
+```sql
+CREATE TABLE EMPLOYEE (
+    Emp_no NUMBER(5), 
+    E_name CHAR(30), 
+    E_address CHAR(100), 
+    E_ph_no CHAR(15), 
+    Dept_no NUMBER(3), 
+    Dept_name CHAR(30), 
+    Job_id CHAR(10), 
+    Salary NUMBER(10, 2)
+);
+```
+This SQL creates an EMPLOYEE table with the required columns including employee number, name, address, and salary information.
+
+### Question 2: Add a new column HIREDATE to the existing relation
+```sql
+ALTER TABLE EMPLOYEE ADD (HIREDATE DATE);
+```
+This command adds a new column HIREDATE of type DATE to the EMPLOYEE table for storing employee hiring dates.
+
+### Question 3: Change the datatype of JOB_ID from char to varchar2
+```sql
+ALTER TABLE EMPLOYEE MODIFY (Job_id VARCHAR2(20));
+```
+This modifies the Job_id column to use VARCHAR2 datatype which allows variable length character strings.
+
+### Question 4: Change the name of column/field Emp_no to E_no
+```sql
+ALTER TABLE EMPLOYEE RENAME COLUMN Emp_no TO E_no;
+```
+This renames the column Emp_no to E_no in the EMPLOYEE table.
+
+### Question 5: Modify the column width of the job field of emp table
+```sql
+ALTER TABLE EMPLOYEE MODIFY (Job_id VARCHAR2(15));
+```
+This changes the size of the Job_id column to 15 characters.
+
+### Question 6: Create a back up table named Emp1 as a copy of EMPLOYEE table
+```sql
+CREATE TABLE Emp1 AS SELECT * FROM EMPLOYEE;
+```
+This creates a new table Emp1 with the same structure and data as the EMPLOYEE table.
+
+### Question 7: Drop table EMPLOYEE
+```sql
+DROP TABLE EMPLOYEE;
+```
+This permanently removes the EMPLOYEE table from the database.
+
+## Assignment 3
+-------------------------------------------
+//////////////////////////////////////////////////
+-------------------------------------------------
+====================================================
+### Question 1: Display all client names from Client_master
+```sql
+SELECT NAME FROM CLIENT_MASTER;
+```
+This query retrieves all client names from the Client_master table.
+
+### Question 2: Display name and city from Client_master
+```sql
+SELECT NAME, CITY FROM CLIENT_MASTER;
+```
+This query selects both the name and city columns for all clients.
+
+### Question 3: Display product descriptions from Product_master
+```sql
+SELECT DESCRIPTION FROM PRODUCT_MASTER;
+```
+This query lists all product descriptions available in the Product_master table.
+
+### Question 4: Display clients from Bombay
+```sql
+SELECT * FROM CLIENT_MASTER WHERE CITY = 'Bombay';
+```
+This query retrieves all details of clients who are located in Bombay.
+
+### Question 5: Display clients with specific client numbers
+```sql
+SELECT * FROM CLIENT_MASTER WHERE ClientNo IN ('0001','0002');
+```
+This query selects clients whose client numbers are either '0001' or '0002'.
+
+### Question 6: Display specific products by description
+```sql
+SELECT * FROM PRODUCT_MASTER WHERE Description IN ('1.44 Drive', '1.22 Drive');
+```
+This query retrieves all products that are either '1.44 Drive' or '1.22 Drive'.
+
+### Question 7: Display products with selling price greater than 5000
+```sql
+SELECT * FROM PRODUCT_MASTER WHERE Sell_price > 5000;
+```
+This query lists products with a selling price exceeding 5000.
+
+### Question 8: Display clients from specific cities
+```sql
+SELECT * FROM CLIENT_MASTER WHERE CITY IN ('Bombay', 'Delhi', 'Madras');
+```
+This query shows clients who are from either Bombay, Delhi, or Madras.
+
+### Question 9: Display products in a specific price range
+```sql
+SELECT * FROM PRODUCT_MASTER WHERE Sell_price > 2000 AND Sell_price <= 5000;
+```
+This query selects products with selling prices between 2000 and 5000 (exclusive of 2000 and inclusive of 5000).
+
+### Question 10: Display clients not from Maharashtra
+```sql
+SELECT NAME, CITY, STATE FROM CLIENT_MASTER WHERE STATE <> 'Maharashtra' OR STATE IS NULL;
+```
+This query lists clients whose state is not Maharashtra or where the state is not specified.
+
+## Assignment 4
+--------------------------------------------
+////////////////////////////////////////////////////
+--------------------------------------------------
+=====================================================
+### Question 1: Add a new tuple in the Customers table
+```sql
+INSERT INTO Customers (CustomerID, CustomerName, ContactName, Address, City, PostalCode, Country) 
+VALUES (101, 'NewCorp Ltd', 'John Smith', '123 New Street', 'Los Angeles', '90001', 'USA');
+```
+This adds a new customer record with ID 101 to the Customers table.
+
+### Question 2: Create a backup table for Customers
+```sql
+CREATE TABLE Cust_BackUp AS SELECT * FROM Customers;
+```
+This creates a new table named Cust_BackUp containing all records from the Customers table.
+
+### Question 3: Delete records from Customers for specific criteria
+```sql
+DELETE FROM Customers WHERE City = 'Berlin' OR Country = 'UK';
+```
+This deletes all customers who are either from Berlin city or from the United Kingdom.
+
+### Question 4: Show CustomerName and Address for non-UK and non-Mexico customers
+```sql
+SELECT CustomerName, Address 
+FROM Cust_BackUp
+WHERE Country NOT IN ('UK', 'Mexico') 
+ORDER BY City ASC;
+```
+This displays customer names and addresses for customers not from UK or Mexico, ordered by city name.
+
+### Question 5: Count distinct countries in Cust_BackUp
+```sql
+SELECT COUNT(DISTINCT Country) AS CountryCount FROM Cust_BackUp;
+```
+This counts the number of unique countries represented in the Cust_BackUp table.
+
+### Question 6: Show all customers sorted by Country and CustomerName
+```sql
+SELECT * FROM Cust_BackUp 
+ORDER BY Country ASC, CustomerName ASC;
+```
+This displays all customer details sorted first by country and then by customer name alphabetically.
+
+### Question 7: Update City to 'Tijuana' for specific customers
+```sql
+UPDATE Cust_BackUp 
+SET City = 'Tijuana' 
+WHERE Country = 'Mexico' AND ContactName <> 'Antonio Moreno';
+```
+This changes the city to Tijuana for customers from Mexico except for Antonio Moreno.
+
+### Question 8: Show customers from the same country as Ana Trujillo
+```sql
+SELECT * 
+FROM Cust_BackUp
+WHERE Country = (
+    SELECT Country 
+    FROM Cust_BackUp
+    WHERE ContactName = 'Ana Trujillo'
+);
+```
+This displays all customers who are from the same country as Ana Trujillo.
+
+### Question 9: Find customers not from listed countries
+```sql
+SELECT * 
+FROM Cust_BackUp
+WHERE Country NOT IN ('Mexico', 'USA', 'Germany', 'UK', 'Sweden');
+```
+This finds customers who do not belong to any of the specified countries.
+
+### Question 10: Count customers in each country
+```sql
+SELECT Country, COUNT(*) AS CustomerCount
+FROM Cust_BackUp
+GROUP BY Country;
+```
+This counts the number of customers in each country and displays the country name with its customer count.
+
+### Question 11: Find customers per city in descending order
+```sql
+SELECT City, COUNT(*) AS CustomerCount
+FROM Cust_BackUp
+GROUP BY City
+ORDER BY CustomerCount DESC;
+```
+This counts customers in each city and sorts the results by count in descending order.
+
+### Question 12: Show total varieties of products
+```sql
+SELECT COUNT(*) AS Total_Varieties 
+FROM product_master;
+```
+This counts the total number of different products available in the product_master table.
+
+### Question 13: Display product with highest quantity
+```sql
+SELECT Description 
+FROM product_master
+WHERE Qty_on_hand = (SELECT MAX(Qty_on_hand) FROM product_master);
+```
+This finds the product with the highest quantity on hand.
+
+### Question 14: Display average cost price of products
+```sql
+SELECT AVG(Cost_price) AS Avg_Cost 
+FROM product_master;
+```
+This calculates the average cost price of all products.
+
+### Question 15: Show product with minimum selling price
+```sql
+SELECT * 
+FROM product_master
+WHERE Sell_price = (SELECT MIN(Sell_price) FROM product_master);
+```
+This displays the complete details of the product with the lowest selling price.
+
+## Assignment 5
+------------------------------------------
+//////////////////////////////////////////////
+-------------------------------------------------
+===========================================================
+### Question 1: Modify Product_master by adding Client_no
+```sql
+ALTER TABLE product_master ADD Client_no VARCHAR2(6);
+```
+This adds a new column Client_no to the product_master table to track which client each product belongs to.
+
+### Question 2: Update Client_no values in Product_master
+```sql
+UPDATE product_master SET Client_no = '0001' WHERE product_no = 'P00001';
+UPDATE product_master SET Client_no = '0002' WHERE product_no = 'P03453';
+UPDATE product_master SET Client_no = '0001' WHERE product_no = 'P06734';
+UPDATE product_master SET Client_no = '0001' WHERE product_no = 'P07865';
+UPDATE product_master SET Client_no = '0003' WHERE product_no = 'P07868';
+UPDATE product_master SET Client_no = '0002' WHERE product_no = 'P07885';
+UPDATE product_master SET Client_no = '0004' WHERE product_no = 'P07965';
+UPDATE product_master SET Client_no = '0005' WHERE product_no = 'P07975';
+UPDATE product_master SET Client_no = '0004' WHERE product_no = 'P08865';
+```
+These statements assign client numbers to products according to the specified mapping.
+
+### Question 3: Retrieve client names with their purchased products
+```sql
+SELECT c.Name, p.Description 
+FROM client_master c 
+JOIN product_master p ON c.clientNo = p.Client_no;
+```
+This joins the client_master and product_master tables to show which client purchased which product.
+
+### Question 4: Retrieve clients who purchased a specific product
+```sql
+SELECT c.Name, p.Description 
+FROM client_master c 
+JOIN product_master p ON c.clientNo = p.Client_no
+WHERE p.Description = 'Keyboards';
+```
+This shows which clients have purchased keyboards.
+
+### Question 5: Count products purchased by each client
+```sql
+SELECT c.Name, COUNT(p.product_no) AS Total_Products
+FROM client_master c 
+LEFT JOIN product_master p ON c.clientNo = p.Client_no
+GROUP BY c.Name;
+```
+This counts how many products each client has purchased.
+
+### Question 6: Retrieve clients with no purchases
+```sql
+SELECT Name 
+FROM client_master 
+WHERE clientNo NOT IN (SELECT DISTINCT Client_no FROM product_master WHERE Client_no IS NOT NULL);
+```
+This finds clients who have not purchased any products.
+
+### Question 7: Retrieve most expensive product per client
+```sql
+SELECT c.Name, p.Description, p.Sell_price
+FROM product_master p
+JOIN client_master c ON c.clientNo = p.Client_no
+WHERE p.Sell_price = (
+    SELECT MAX(Sell_price) 
+    FROM product_master p2 
+    WHERE p2.Client_no = p.Client_no
+);
+```
+This displays the most expensive product purchased by each client.
+
+### Question 8: Retrieve total spending per client
+```sql
+SELECT c.Name, SUM(p.Sell_price) AS Total_Spent
+FROM client_master c
+JOIN product_master p ON c.clientNo = p.Client_no
+GROUP BY c.Name;
+```
+This calculates the total amount spent by each client.
+
+### Question 9: Find client with highest number of purchases
+```sql
+SELECT *FROM (
+    SELECT c.Name, COUNT(p.product_no) AS Total_Products
+    FROM client_master c
+    JOIN product_master p ON c.clientNo = p.Client_no
+    GROUP BY c.Name
+    ORDER BY Total_Products DESC
+)
+WHERE ROWNUM = 1;
+```
+This identifies the client who has purchased the most products.
+
+## Assignment 6
+---------------------------------------------------------
+/////////////////////////////////////////////////////
+---------------------------------------------------------
+==========================================================
+### Question 1: Find countries with most customers
+```sql
+SELECT Country, COUNT(*) AS CustomerCount
+FROM Customers
+GROUP BY Country
+HAVING COUNT(*) = (
+    SELECT MAX(CountryCount)
+    FROM (
+        SELECT COUNT(*) AS CountryCount
+        FROM Customers
+        GROUP BY Country
+    )
+);
+```
+This identifies the country or countries with the highest number of customers.
+
+### Question 2: Display customers with longest address
+```sql
+SELECT CustomerName, Address
+FROM Customers
+WHERE LENGTH(Address) = (
+    SELECT MAX(LENGTH(Address))
+    FROM Customers
+);
+```
+This finds customers whose address has the maximum character length.
+
+### Question 3: Show customers with matching postal codes
+```sql
+SELECT CustomerName, PostalCode
+FROM Customers c1
+WHERE EXISTS (
+    SELECT 1
+    FROM Customers c2
+    WHERE c1.PostalCode = c2.PostalCode
+    AND c1.CustomerID <> c2.CustomerID
+);
+```
+This shows customers whose postal code matches with at least one other customer.
+
+### Question 4: Find customers from same country as Alice Johnson
+```sql
+SELECT CustomerName
+FROM Customers
+WHERE Country = (
+    SELECT Country
+    FROM Customers
+    WHERE CustomerName = 'Alice Johnson'
+);
+```
+This finds customers who live in the same country as Alice Johnson.
+
+### Question 5: List customers with same city as CustomerID 1
+```sql
+SELECT CustomerName
+FROM Customers
+WHERE City = (
+    SELECT City
+    FROM Customers
+    WHERE CustomerID = 1
+);
+```
+This shows customers who are in the same city as the customer with ID 1.
+
+### Question 6: Show customers with duplicate contact names
+```sql
+SELECT c1.CustomerName
+FROM Customers c1
+WHERE EXISTS (
+    SELECT 1
+    FROM Customers c2
+    WHERE c1.ContactName = c2.ContactName
+    AND c1.CustomerID <> c2.CustomerID
+);
+```
+This identifies customers who have the same contact name as another customer.
+
+### Question 7: Retrieve customers from countries appearing multiple times
+```sql
+SELECT CustomerName, Country
+FROM Customers
+WHERE Country IN (
+    SELECT Country
+    FROM Customers
+    GROUP BY Country
+    HAVING COUNT(*) > 2
+);
+```
+This finds customers from countries that appear more than twice in the table.
+
+### Question 8: Display current system date and time
+```sql
+SELECT SYSDATE AS Current_DateTime FROM DUAL;
+```
+This shows the current system date and time from the DUAL table.
+
+### Question 9: Show date 30 days from today
+```sql
+SELECT SYSDATE + 30 AS "Future Date" FROM DUAL;
+```
+This calculates and displays a date that is 30 days from the current date.
+
+### Question 10: Display first day of current month
+```sql
+SELECT TRUNC(SYSDATE, 'MONTH') AS First_Day_Of_Month FROM DUAL;
+```
+This returns the first day of the current month.
+
+### Question 11: Retrieve day of the week for today
+```sql
+SELECT TO_CHAR(SYSDATE, 'DAY') AS Today_Day FROM DUAL;
+```
+This shows the name of the current day of the week.
+
+### Question 12: Display days difference between dates
+```sql
+SELECT SYSDATE - TO_DATE('01-JAN-2024', 'DD-MON-YYYY') AS Days_Difference FROM DUAL;
+```
+This calculates the number of days between the current date and January 1, 2024.
+
+### Question 13: Show current timestamp in specific format
+```sql
+SELECT TO_CHAR(SYSDATE, 'YYYY-MM-DD HH24:MI:SS') AS Formatted_Timestamp FROM DUAL;
+```
+This displays the current date and time in the YYYY-MM-DD HH24:MI:SS format.
+
+### Question 14: Calculate seconds between timestamps
+```sql
+SELECT (TO_DATE('2025-01-01 00:00:00', 'YYYY-MM-DD HH24:MI:SS') - SYSDATE) * 24 * 60 * 60 AS Seconds_Difference FROM DUAL;
+```
+This calculates the number of seconds between the current time and January 1, 2025.
+
+## Assignment 7
+------------------------------------------
+///////////////////////////////////////////
+---------------------------------------------
+====================================================
+### Question 1: PL/SQL block to sum two integers
+```sql
+SET SERVEROUTPUT ON;
+DECLARE
+    num1 INTEGER := 10;
+    num2 INTEGER := 20;
+    total INTEGER;
+BEGIN
+    total := num1 + num2;
+    DBMS_OUTPUT.PUT_LINE('The sum of ' || num1 || ' and ' || num2 || ' is ' || total);
+END;
+/
+```
+This PL/SQL block declares two integer variables, assigns values, and outputs their sum.
+
+### Question 2: PL/SQL block to check if a number is even or odd
+```sql
+SET SERVEROUTPUT ON;
+DECLARE
+    num INTEGER := 15;
+BEGIN
+    IF MOD(num, 2) = 0 THEN
+        DBMS_OUTPUT.PUT_LINE(num || ' is an even number');
+    ELSE
+        DBMS_OUTPUT.PUT_LINE(num || ' is an odd number');
+    END IF;
+END;
+/
+```
+This block checks if a given number is even or odd and displays the result.
+
+### Question 3: PL/SQL block to print numbers 1 to 10
+```sql
+SET SERVEROUTPUT ON;
+BEGIN
+    FOR i IN 1..10 LOOP
+        DBMS_OUTPUT.PUT_LINE(i);
+    END LOOP;
+END;
+/
+```
+This block uses a FOR loop to print the numbers 1 through 10.
+
+### Question 4: PL/SQL block to calculate factorial
+```sql
+SET SERVEROUTPUT ON;
+DECLARE
+    n INTEGER := 5;
+    factorial INTEGER := 1;
+BEGIN
+    FOR i IN 1..n LOOP
+        factorial := factorial * i;
+    END LOOP;
+    DBMS_OUTPUT.PUT_LINE('Factorial of ' || n || ' is ' || factorial);
+END;
+/
+```
+This block calculates the factorial of a given number using a FOR loop.
+
+### Question 5: PL/SQL block to handle division by zero
+```sql
+SET SERVEROUTPUT ON;
+DECLARE
+    a INTEGER := 10;
+    b INTEGER := 0;
+    result NUMBER;
+BEGIN
+    BEGIN
+        result := a / b;
+        DBMS_OUTPUT.PUT_LINE('Result: ' || result);
+    EXCEPTION
+        WHEN ZERO_DIVIDE THEN
+            DBMS_OUTPUT.PUT_LINE('Error: Division by zero is not allowed');
+    END;
+END;
+/
+```
+This block demonstrates exception handling by catching a division by zero error.
+
+### Question 6: PL/SQL block with cursor to display client names
+```sql
+SET SERVEROUTPUT ON;
+DECLARE
+    CURSOR client_cursor IS
+        SELECT Name FROM client_master;
+    client_name client_master.Name%TYPE;
+BEGIN
+    OPEN client_cursor;
+    LOOP
+        FETCH client_cursor INTO client_name;
+        EXIT WHEN client_cursor%NOTFOUND;
+        DBMS_OUTPUT.PUT_LINE('Client Name: ' || client_name);
+    END LOOP;
+    CLOSE client_cursor;
+END;
+/
+```
+This block uses a cursor to fetch and display all client names from the client_master table.
+
+## Assignment 8
+------------------------------------------
+////////////////////////////////////////////////
+--------------------------------------------------
+==========================================================
+### Question 1: PL/SQL function to get balance due
+```sql
+CREATE OR REPLACE FUNCTION get_balance_due(c_no VARCHAR2)
+RETURN NUMBER
+IS
+    bal NUMBER(10,2);
+BEGIN
+    SELECT Bal_due INTO bal
+    FROM Client_master
+    WHERE ClientNo = c_no;
+    
+    RETURN bal;
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        RETURN NULL;
+END;
+/
+
+-- To test the function:
+SELECT get_balance_due('0001') AS Balance_Due FROM DUAL;
+```
+This function returns the balance due for a client based on the client number provided as input.
+
+### Question 2: PL/SQL function to get full address
+```sql
+CREATE OR REPLACE FUNCTION get_full_address(client_name VARCHAR2)
+RETURN VARCHAR2
+IS
+    v_address VARCHAR2(100);
+BEGIN
+    SELECT Address1 || ', ' || City || ', ' || State || ' - ' || Pincode INTO v_address
+    FROM Client_master
+    WHERE Name = client_name;
+    
+    RETURN v_address;
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        RETURN 'Client not found';
+END;
+/
+
+-- To test the function:
+SELECT get_full_address('Ivan') AS Full_Address FROM DUAL;
+```
+This function returns the full address of a client based on the client name provided as input.
+
+### Question 3: PL/SQL function to return name by city
+```sql
+CREATE OR REPLACE FUNCTION get_client_by_city(p_city VARCHAR2)
+RETURN VARCHAR2
+IS
+    v_name VARCHAR2(20);
+BEGIN
+    SELECT Name INTO v_name
+    FROM Client_master
+    WHERE City = p_city
+    AND ROWNUM = 1;
+    
+    RETURN v_name;
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        RETURN 'No client found in this city';
+END;
+/
+
+-- To test the function:
+SELECT get_client_by_city('Bombay') AS Client_Name FROM DUAL;
+```
+This function returns the name of a client based on the city provided as input.
+
+### Question 4: PL/SQL procedure to update selling price
+```sql
+CREATE OR REPLACE PROCEDURE update_selling_price(p_product_no VARCHAR2)
+IS
+    v_cost_price product_master.cost_price%TYPE;
+    v_profit_percent product_master.profit_percent%TYPE;
+    v_new_sell_price product_master.sell_price%TYPE;
+BEGIN
+    -- Get the cost price and profit percentage
+    SELECT cost_price, profit_percent INTO v_cost_price, v_profit_percent
+    FROM product_master
+    WHERE product_no = p_product_no;
+    
+    -- Calculate new selling price
+    v_new_sell_price := v_cost_price + (v_cost_price * v_profit_percent / 100);
+    
+    -- Update the selling price
+    UPDATE product_master
+    SET sell_price = v_new_sell_price
+    WHERE product_no = p_product_no;
+    
+    COMMIT;
+    DBMS_OUTPUT.PUT_LINE('Selling price updated successfully to ' || v_new_sell_price);
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        DBMS_OUTPUT.PUT_LINE('Product not found');
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Error: ' || SQLERRM);
+END;
+/
+
+-- To execute the procedure:
+SET SERVEROUTPUT ON;
+EXEC update_selling_price('P00001');
+```
+This procedure updates the selling price of a product based on its cost price and profit percentage.
+
+### Question 5: PL/SQL trigger to prevent selling below cost
+```sql
+CREATE OR REPLACE TRIGGER prevent_lower_selling_price
+BEFORE INSERT OR UPDATE ON product_master
+FOR EACH ROW
+BEGIN
+    IF :NEW.sell_price < :NEW.cost_price THEN
+        RAISE_APPLICATION_ERROR(-20001, 'Error: Selling price cannot be lower than cost price');
+    END IF;
+END;
+/
+```
+This trigger prevents the selling price from being set below the cost price during insertion or update operations.
+
+To test the assignments 7 and 8, you'll need to run the SET SERVEROUTPUT ON command first to see the output of the PL/SQL blocks and procedures.

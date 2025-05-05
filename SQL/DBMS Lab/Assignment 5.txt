@@ -1,0 +1,91 @@
+Assignment 5 – DBMS Lab (PC-CS692)
+Objective: Learning SQL-Join and DML 
+
+
+
+Q1. Modify Product_master by adding Client_no column and update values
+sql
+ALTER TABLE Product_master ADD (Client_no VARCHAR2(6));
+
+UPDATE Product_master SET Client_no = '0001' WHERE Product_no = 'P00001';
+UPDATE Product_master SET Client_no = '0002' WHERE Product_no = 'P03453';
+UPDATE Product_master SET Client_no = '0001' WHERE Product_no = 'P06734';
+UPDATE Product_master SET Client_no = '0001' WHERE Product_no = 'P07865';
+UPDATE Product_master SET Client_no = '0003' WHERE Product_no = 'P07868';
+UPDATE Product_master SET Client_no = '0002' WHERE Product_no = 'P07885';
+UPDATE Product_master SET Client_no = '0004' WHERE Product_no = 'P07965';
+UPDATE Product_master SET Client_no = '0005' WHERE Product_no = 'P07975';
+UPDATE Product_master SET Client_no = '0004' WHERE Product_no = 'P08865';
+
+
+
+
+Q2. SQL Statements using Product_master and Client_master
+
+
+a) Retrieve all client names along with the products they have purchased
+sql
+SELECT c.Name AS ClientName, p.Description AS Product
+FROM Client_master c
+JOIN Product_master p ON c.Client_no = p.Client_no;
+
+
+
+b) Retrieve clients who have purchased a specific product (e.g., 'Key Board')
+sql
+SELECT DISTINCT c.Name
+FROM Client_master c
+JOIN Product_master p ON c.Client_no = p.Client_no
+WHERE p.Description = 'Key Board';
+
+
+
+c) Count the number of products purchased by each client
+sql
+SELECT c.Name, COUNT(p.Product_no) AS ProductCount
+FROM Client_master c
+LEFT JOIN Product_master p ON c.Client_no = p.Client_no
+GROUP BY c.Name;
+
+
+
+d) Retrieve clients who have NOT purchased any products
+sql
+SELECT c.Name
+FROM Client_master c
+LEFT JOIN Product_master p ON c.Client_no = p.Client_no
+WHERE p.Product_no IS NULL;
+
+
+
+e) Retrieve the most expensive product purchased by each client
+sql
+SELECT c.Name, p.Description, p.Sell_price
+FROM Client_master c
+JOIN Product_master p ON c.Client_no = p.Client_no
+WHERE (p.Client_no, p.Sell_price) IN (
+    SELECT Client_no, MAX(Sell_price)
+    FROM Product_master
+    GROUP BY Client_no
+);
+
+
+
+f) Retrieve the total amount spent by each client (sum of Sell_price)
+sql
+SELECT c.Name, NVL(SUM(p.Sell_price), 0) AS TotalAmountSpent
+FROM Client_master c
+LEFT JOIN Product_master p ON c.Client_no = p.Client_no
+GROUP BY c.Name;
+
+
+
+g) Find the client who has purchased the highest number of products
+sql
+SELECT Name, ProductCount FROM (
+    SELECT c.Name, COUNT(p.Product_no) AS ProductCount
+    FROM Client_master c
+    LEFT JOIN Product_master p ON c.Client_no = p.Client_no
+    GROUP BY c.Name
+    ORDER BY ProductCount DESC
+) WHERE ROWNUM = 1;

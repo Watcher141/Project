@@ -1,0 +1,59 @@
+
+Database Management System - Chapter Titles and Topics
+
+1. Introduction to Database Systems
+   - Database management
+   - Data abstraction and system structure
+   - Database users
+   - Database Administrator (DBA)
+
+2. Entity-Relationship Model
+   - Entity sets
+   - Relationship sets
+   - Mapping cardinalities
+   - Keys
+   - E-R diagrams
+
+3. Relational Model and Query Languages
+   - Database schema
+   - Relational algebra
+   - Outer join
+   - Database manipulation
+   - Tuple relational calculus (queries, definitions, safety)
+   - SQL: Query processing and optimization
+   - Set operations, aggregate functions
+   - Data Definition Language (DDL) and views
+   - Query comparison: Relational algebra, SQL, tuple and domain relational calculus
+
+4. Schema Refinement and Normalization
+   - Redundancy issues
+   - Decomposition problems
+   - Functional dependencies
+   - Normal Forms: 1NF, 2NF, 3NF, BCNF
+   - Decomposition properties: Lossless join, Dependency preserving
+   - Multivalued Dependencies and 4NF
+   - Join Dependencies and 5NF
+   - Inclusion dependencies
+
+5. Transaction Management and Concurrency Control
+   - ACID properties
+   - Transaction states
+   - Serializability and testing
+   - Concurrency control schemes
+   - Lock-based protocols
+   - Two-phase locking protocols
+   - Graph and timestamp-based protocols
+   - Deadlocks
+
+6. Database Recovery and Object-Oriented Databases
+   - Recovery systems
+   - Log-based recovery
+   - Deferred and immediate database modification
+   - Object-oriented database design
+
+7. Storage and Indexing Techniques
+   - Data on external storage
+   - File organization and indexing
+   - Clustered, primary, and secondary indexes
+   - Index data structures: Hash-based and tree-based indexing
+   - Comparison of file organizations

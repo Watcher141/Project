@@ -1,0 +1,11 @@
+SET SERVEROUTPUT ON;
+DECLARE
+    year NUMBER := 2025;  -- You can change the year here
+BEGIN
+    IF (MOD(year, 4) = 0 AND MOD(year, 100) != 0) OR (MOD(year, 400) = 0) THEN
+        DBMS_OUTPUT.PUT_LINE(year || ' is a leap year');
+    ELSE
+        DBMS_OUTPUT.PUT_LINE(year || ' is not a leap year');
+    END IF;
+END;
+/

@@ -1,0 +1,150 @@
+Assignment 6
+(Advanced Nested Queries and DUAL Table for Date Calculations)
+
+
+
+Q1. Use the Customers table to solve the following:
+
+i) Find the countries with the most customers.
+sql
+SELECT Country
+FROM (
+    SELECT Country, COUNT(*) AS cnt
+    FROM Customers
+    GROUP BY Country
+    ORDER BY cnt DESC
+)
+WHERE ROWNUM = 1;
+If there could be a tie, use:
+
+sql
+SELECT Country
+FROM (
+    SELECT Country, COUNT(*) AS cnt
+    FROM Customers
+    GROUP BY Country
+)
+WHERE cnt = (
+    SELECT MAX(COUNT(*))
+    FROM Customers
+    GROUP BY Country
+);
+
+
+
+ii) Display the customer names with the longest address (by character length).
+sql
+SELECT CustomerName, Address
+FROM Customers
+WHERE LENGTH(Address) = (
+    SELECT MAX(LENGTH(Address)) FROM Customers
+);
+
+
+
+iii) Show the names of customers whose postal code matches with at least one other customer.
+sql
+SELECT CustomerName, PostalCode
+FROM Customers
+WHERE PostalCode IN (
+    SELECT PostalCode
+    FROM Customers
+    WHERE PostalCode IS NOT NULL
+    GROUP BY PostalCode
+    HAVING COUNT(*) > 1
+);
+
+
+
+iv) Find the customers who live in the same country as "Alice Johnson".
+sql
+SELECT CustomerName, Country
+FROM Customers
+WHERE Country = (
+    SELECT Country FROM Customers WHERE CustomerName = 'Alice Johnson'
+);
+
+
+
+v) List the customers whose city is the same as the customer with CustomerID ‘1’.
+sql
+SELECT CustomerName, City
+FROM Customers
+WHERE City = (
+    SELECT City FROM Customers WHERE CustomerID = 1
+);
+
+
+
+vi) Show the customer name(s) who have the same contact name as at least one other customer.
+sql
+SELECT CustomerName, ContactName
+FROM Customers
+WHERE ContactName IN (
+    SELECT ContactName
+    FROM Customers
+    WHERE ContactName IS NOT NULL
+    GROUP BY ContactName
+    HAVING COUNT(*) > 1
+);
+
+
+
+vii) Retrieve the customer(s) whose country appears more than twice in the table.
+sql
+SELECT CustomerName, Country
+FROM Customers
+WHERE Country IN (
+    SELECT Country
+    FROM Customers
+    GROUP BY Country
+    HAVING COUNT(*) > 2
+);
+
+
+
+
+
+Q2. Use DUAL Table for date/time queries:
+
+i) Display the current system date and time.
+sql
+SELECT SYSDATE FROM DUAL;
+
+
+
+ii) Show the date 30 days from today and name the column as “Future Date”.
+sql
+SELECT SYSDATE + 30 AS "Future Date" FROM DUAL;
+
+
+
+iii) Display the first day of the current month.
+sql
+SELECT TRUNC(SYSDATE, 'MM') AS "First_Day_Of_Month" FROM DUAL;
+
+
+
+iv) Retrieve the day of the week for today.
+sql
+SELECT TO_CHAR(SYSDATE, 'Day') AS "Day_Of_Week" FROM DUAL;
+
+
+
+v) Display the difference in days between current date and “01-Jan-2024”.
+sql
+SELECT SYSDATE - TO_DATE('01-Jan-2024', 'DD-Mon-YYYY') AS "Days_Difference" FROM DUAL;
+
+
+
+vi) Show the current timestamp in YYYY-MM-DD HH24:MI:SS format.
+sql
+SELECT TO_CHAR(SYSTIMESTAMP, 'YYYY-MM-DD HH24:MI:SS') AS "Current_Timestamp" FROM DUAL;
+
+
+
+vii) Calculate the number of seconds between ‘2025-01-01 00:00:00’ and now.
+sql
+SELECT 
+    (TO_DATE('2025-01-01 00:00:00', 'YYYY-MM-DD HH24:MI:SS') - SYSDATE) * 24 * 60 * 60 AS "Seconds_Remaining"
+FROM DUAL;

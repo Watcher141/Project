@@ -1,0 +1,11 @@
+-- Set individual column widths
+COLUMN CustomerID FORMAT 99999
+COLUMN CustomerName FORMAT A10
+COLUMN ContactName FORMAT A10
+COLUMN Address FORMAT A15
+COLUMN City FORMAT A7
+COLUMN PostalCode FORMAT A8
+COLUMN Country FORMAT A9
+
+-- Now run your query
+SELECT * FROM Customers;

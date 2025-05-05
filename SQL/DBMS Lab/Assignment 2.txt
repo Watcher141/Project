@@ -1,0 +1,29 @@
+Assignment 2
+
+i) Create Client_master Table
+sql
+CREATE TABLE Client_master (
+    Client_no CHAR(6) PRIMARY KEY,
+    Name VARCHAR2(20),
+    Address1 VARCHAR2(30),
+    Address2 VARCHAR2(30),
+    City VARCHAR2(15),
+    Pincode NUMBER(8),
+    State VARCHAR2(15),
+    Bal_due NUMBER(10,2)
+);
+
+
+
+ii) Create Product_master Table
+sql
+CREATE TABLE Product_master (
+    Product_no CHAR(6) PRIMARY KEY,
+    Description VARCHAR2(15),
+    Profit_percent NUMBER(5,2),
+    Unit_measure VARCHAR2(10),
+    Qty_on_hand NUMBER(8),
+    Reorder_lvl NUMBER(8),
+    Sell_price NUMBER(10,2),
+    Cost_price NUMBER(10,2)
+);

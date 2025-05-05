@@ -1,0 +1,133 @@
+Assignment 8 – DBMS Lab (PC-CS692)
+Objective: Learning PL/SQL Function and Procedure
+
+
+
+Q1. PL/SQL Function to get the balance due for a given client number
+sql
+CREATE OR REPLACE FUNCTION get_balance_due(p_client_no IN VARCHAR2)
+RETURN NUMBER
+IS
+    v_bal_due NUMBER(10,2);
+BEGIN
+    SELECT Bal_due INTO v_bal_due
+    FROM Client_master
+    WHERE Client_no = p_client_no;
+
+    RETURN v_bal_due;
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        RETURN NULL; -- or RETURN 0; based on requirement
+END;
+/
+
+
+
+Q2. PL/SQL Function to return the full address of a client whose name is passed as argument
+sql
+CREATE OR REPLACE FUNCTION get_full_address(p_name IN VARCHAR2)
+RETURN VARCHAR2
+IS
+    v_address VARCHAR2(100);
+BEGIN
+    SELECT Address1 || ', ' || Address2 || ', ' || City || ', ' || State || ' - ' || Pincode
+    INTO v_address
+    FROM Client_master
+    WHERE Name = p_name;
+
+    RETURN v_address;
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        RETURN NULL;
+END;
+/
+
+
+
+
+Q3. PL/SQL Function to return the name of the client by city passed as argument
+Note: If multiple clients exist in the same city, this function returns the first one found. For multiple clients, consider a pipelined function or returning a collection.
+
+sql
+CREATE OR REPLACE FUNCTION get_client_name_by_city(p_city IN VARCHAR2)
+RETURN VARCHAR2
+IS
+    v_name VARCHAR2(20);
+BEGIN
+    SELECT Name INTO v_name
+    FROM Client_master
+    WHERE City = p_city
+    AND ROWNUM = 1;
+
+    RETURN v_name;
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        RETURN NULL;
+END;
+/
+
+
+
+
+Q4. Procedure to update the selling price based on profit percentage for a product number
+sql
+CREATE OR REPLACE PROCEDURE update_selling_price(p_product_no IN VARCHAR2)
+IS
+    v_cost_price NUMBER(7,2);
+    v_profit_percent NUMBER(5,2);
+    v_new_sell_price NUMBER(7,2);
+BEGIN
+    SELECT Cost_price, Profit_percent
+    INTO v_cost_price, v_profit_percent
+    FROM Product_master
+    WHERE Product_no = p_product_no;
+
+    v_new_sell_price := v_cost_price + (v_cost_price * v_profit_percent / 100);
+
+    UPDATE Product_master
+    SET Sell_price = v_new_sell_price
+    WHERE Product_no = p_product_no;
+
+    COMMIT;
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        DBMS_OUTPUT.PUT_LINE('Product not found: ' || p_product_no);
+END;
+/
+
+
+
+
+Q5. Trigger to prevent selling price from being set below cost price on insert or update
+sql
+CREATE OR REPLACE TRIGGER trg_check_sell_price
+BEFORE INSERT OR UPDATE ON Product_master
+FOR EACH ROW
+BEGIN
+    IF :NEW.Sell_price < :NEW.Cost_price THEN
+        RAISE_APPLICATION_ERROR(-20001, 'Selling price cannot be less than cost price.');
+    END IF;
+END;
+/
+How to test:
+Enable output in SQL*Plus or SQL Developer:
+
+sql
+SET SERVEROUTPUT ON;
+Call the function or procedure, for example:
+
+sql
+-- Q1:
+DECLARE
+    bal NUMBER;
+BEGIN
+    bal := get_balance_due('C00001');
+    DBMS_OUTPUT.PUT_LINE('Balance Due: ' || bal);
+END;
+/
+
+-- Q4:
+BEGIN
+    update_selling_price('P00001');
+END;
+/

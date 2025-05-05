@@ -1,0 +1,21 @@
+Insert Data into Client_master
+sql>
+INSERT INTO Client_master VALUES ('C00001', 'Ivan', 'A/14', 'Worli', 'Mumbai', 400054, 'Maharashtra', 15000);
+INSERT INTO Client_master VALUES ('C00002', 'Karim', '65', 'Nariman', 'Mumbai', 400057, 'Maharashtra', 0);
+INSERT INTO Client_master VALUES ('C00003', 'John', 'P-7', 'Bandra', 'Mumbai', 400056, 'Maharashtra', 5000);
+INSERT INTO Client_master VALUES ('C00004', 'Ravi', 'A/5', 'Juhu', 'Delhi', 400050, 'Delhi', 2000);
+INSERT INTO Client_master VALUES ('C00005', 'Sanjay', 'A/11', 'Worli', 'Mumbai', 400060, 'Maharashtra', 0);
+INSERT INTO Client_master VALUES ('C00006', 'Siddharth', 'A/12', 'Worli', 'Mumbai', 400056, 'Maharashtra', 0);
+
+
+Insert Data into Product_master
+sql>
+INSERT INTO Product_master VALUES ('P00001', '1.44 Drive', 5, 'Piece', 100, 20, 750, 500);
+INSERT INTO Product_master VALUES ('P03453', 'Monitor', 6, 'Piece', 10, 3, 12000, 8500);
+INSERT INTO Product_master VALUES ('P06734', 'Mouse', 5, 'Piece', 20, 5, 500, 350);
+INSERT INTO Product_master VALUES ('P07865', '1.22 Drive', 5, 'Piece', 100, 20, 1050, 900);
+INSERT INTO Product_master VALUES ('P07868', 'Key Board', 2, 'Piece', 10, 3, 3500, 2000);
+INSERT INTO Product_master VALUES ('P07885', 'CD Drive', 2.5, 'Piece', 10, 3, 8500, 5500);
+INSERT INTO Product_master VALUES ('P07965', 'Pen Drive', 8, 'Piece', 50, 10, 350, 200);
+INSERT INTO Product_master VALUES ('P07975', 'Zip Drive', 7, 'Piece', 10, 3, 2500, 1500);
+INSERT INTO Product_master VALUES ('P08865', 'Speaker', 4, 'Piece', 50, 5, 550, 350);
